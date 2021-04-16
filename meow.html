@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<!-- Background by Hendo Wang on Unsplash -->
+<!-- 勝勝可愛 -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="icon" type="image/png" href="https://cute.gnehs.net/sticker.jpg" />
+    <!-- Primary Meta Tags -->
+    <title>Friend Touch</title>
+    <meta name="title" content="Friend Touch">
+    <!--<meta name="description" content="">-->
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cute.gnehs.net/">
+    <meta property="og:title" content="Friend Touch">
+    <!--<meta property="og:description" content="">-->
+    <!--<meta property="og:image" content="https://cute.gnehs.net/cute.png">-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,400;1,100;1,400&display=swap" rel="stylesheet">
+    <link href="./style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div id="app">
+            <div class="title neon-text neon-shadow">Friend Touch</div>
+            <form class="form" @submit.prevent="submit">
+                <div class="field">
+                    <label class="neon-text">ID</label>
+                    <input type="text" required v-model="form.id">
+                </div>
+                <div class="field">
+                    <label class="neon-text">Password</label>
+                    <input type="text" required v-model="form.pw">
+                </div>
+                <div class="field">
+                    <label class="neon-text">URL</label>
+                    <input type="url" required placeholder="https://" v-model="form.url">
+                </div>
+                <button type="submit" class="btn btn-submit neon-text neon-shadow" @click="submit">Submit</button>
+            </form>
+        </div>
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.5/vue.global.prod.js"></script>
+    <script>
+        const App = {
+            created() {
+
+                let urlParams = new URLSearchParams(window.location.search);
+                this.form.id = urlParams.get('id') || ""
+            },
+            data() {
+                return {
+                    form: {
+                        id: "",
+                        url: "",
+                        pw: "",
+                    }
+                }
+            },
+            methods: {
+                async submit() {
+                    let data = this.form
+                    let result = await fetch('https://friend-touch.com/api/change', {
+                        body: JSON.stringify(data),
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        method: 'POST',
+                        mode: 'cors',
+                    }).then(x => x.json())
+                    if (result.text == "OK") {
+                        this.form = {
+                            id: "",
+                            url: "",
+                            pw: "",
+                        }
+                    }
+                    alert(result.text)
+                }
+            }
+        }
+
+        Vue.createApp(App).mount('#app');
+        window.addEventListener("load", function (event) {
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            })
+        });
+    </script>
+</body>
+
+</html>
