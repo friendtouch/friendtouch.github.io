@@ -1,0 +1,20 @@
+{
+  "name": "friendtouch",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "core-js": "^3.9.1",
+    "nuxt": "^2.15.3"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "@nuxtjs/vuetify": "^1.11.3",
+    "nuxt-vite": "^0.0.36"
+  }
+}
