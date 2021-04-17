@@ -7,56 +7,58 @@
 			<div class="field mt-4">
 				<v-text-field filled color="white" label="Password" v-model="form.pw" hide-details></v-text-field>
 			</div>
-			<n-title>Links</n-title>
-			<div class="field px-2" v-for="(link,i) of form.data.sp" :key="i" v-if="settings.length">
-				<v-menu top close-on-click>
-					<template v-slot:activator="{ on, attrs }">
-						<v-btn color="white" dark v-bind="attrs" v-on="on" icon>
-							<v-icon>fab fa-{{settings.filter(x=>x.id == form.data.sp[i].id)[0].icon}}</v-icon>
-						</v-btn>
-					</template>
+			<div v-if="settings.length">
+				<n-title>Links</n-title>
+				<div class="field px-2" v-for="(link,i) of form.data.sp" :key="i">
+					<v-menu top close-on-click>
+						<template v-slot:activator="{ on, attrs }">
+							<v-btn color="white" dark v-bind="attrs" v-on="on" icon>
+								<v-icon>fab fa-{{settings.filter(x=>x.id == form.data.sp[i].id)[0].icon}}</v-icon>
+							</v-btn>
+						</template>
 
-					<v-list style="text-align: left;">
-						<v-list-item v-for="item of settings" :key="item.id" @click="form.data.sp[i].id=item.id">
-							<v-list-item-title>
-								<v-icon>fab fa-{{item.icon}}</v-icon>
-								{{item.display_name}}
-							</v-list-item-title>
-						</v-list-item>
-					</v-list>
-				</v-menu>
-				<v-text-field
-					type="url"
-					class="edit-input"
-					required
-					placeholder="https://"
-					v-model="form.data.sp[i].url"
-					hide-details
-					filled
-					rounded
-				/>
+						<v-list style="text-align: left;">
+							<v-list-item v-for="item of settings" :key="item.id" @click="form.data.sp[i].id=item.id">
+								<v-list-item-title>
+									<v-icon>fab fa-{{item.icon}}</v-icon>
+									{{item.display_name}}
+								</v-list-item-title>
+							</v-list-item>
+						</v-list>
+					</v-menu>
+					<v-text-field
+						type="url"
+						class="edit-input"
+						required
+						placeholder="https://"
+						v-model="form.data.sp[i].url"
+						hide-details
+						filled
+						rounded
+					/>
 
-				<v-btn icon color="white" @click="form.data.sp=form.data.sp.filter((x,j)=>i!=j)">
-					<v-icon>fas fa-times</v-icon>
-				</v-btn>
-			</div>
-			<div class="field">
-				<v-menu top close-on-click>
-					<template v-slot:activator="{ on, attrs }">
-						<v-btn text color="white" block v-bind="attrs" v-on="on">
-							<v-icon>fas fa-plus</v-icon>
-						</v-btn>
-					</template>
+					<v-btn icon color="white" @click="form.data.sp=form.data.sp.filter((x,j)=>i!=j)">
+						<v-icon>fas fa-times</v-icon>
+					</v-btn>
+				</div>
+				<div class="field">
+					<v-menu top close-on-click>
+						<template v-slot:activator="{ on, attrs }">
+							<v-btn text color="white" block v-bind="attrs" v-on="on">
+								<v-icon>fas fa-plus</v-icon>
+							</v-btn>
+						</template>
 
-					<v-list style="text-align: left;">
-						<v-list-item v-for="item of settings" :key="item.id" @click="addLink(item.id)">
-							<v-list-item-title>
-								<v-icon>fab fa-{{item.icon}}</v-icon>
-								{{item.display_name}}
-							</v-list-item-title>
-						</v-list-item>
-					</v-list>
-				</v-menu>
+						<v-list style="text-align: left;">
+							<v-list-item v-for="item of settings" :key="item.id" @click="addLink(item.id)">
+								<v-list-item-title>
+									<v-icon>fab fa-{{item.icon}}</v-icon>
+									{{item.display_name}}
+								</v-list-item-title>
+							</v-list-item>
+						</v-list>
+					</v-menu>
+				</div>
 			</div>
 			<button class="btn btn-submit neon-text neon-shadow" type="submit">Submit</button>
 		</form>
