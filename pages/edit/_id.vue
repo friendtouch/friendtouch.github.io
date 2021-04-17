@@ -8,7 +8,7 @@
 				<v-text-field filled color="white" label="Password" v-model="form.pw" hide-details></v-text-field>
 			</div>
 			<n-title>Links</n-title>
-			<div class="field links px-2" v-for="(link,i) of form.data.sp" :key="i" v-if="settings.length">
+			<div class="field px-2" v-for="(link,i) of form.data.sp" :key="i" v-if="settings.length">
 				<v-menu top close-on-click>
 					<template v-slot:activator="{ on, attrs }">
 						<v-btn color="white" dark v-bind="attrs" v-on="on" icon>
@@ -41,7 +41,9 @@
 				</v-btn>
 			</div>
 			<div class="field">
-				<v-btn text color="white" block @click="addLink">add</v-btn>
+				<v-btn text color="white" block @click="addLink">
+					<v-icon>fas fa-plus</v-icon>
+				</v-btn>
 			</div>
 			<button class="btn btn-submit neon-text neon-shadow" type="submit">Submit</button>
 		</form>
