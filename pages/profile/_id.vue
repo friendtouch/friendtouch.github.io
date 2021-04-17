@@ -23,7 +23,12 @@
 export default {
 	async created() {
 		this.settings = await fetch(`https://friend-touch.com/api/settings`).then(x => x.json())
-		this.sp = (await fetch(`https://friend-touch.com/api/getdata/${this.$route.params.id}`).then(x => x.json())).sp
+		let result = await fetch(`https://friend-touch.com/api/getdata/${this.$route.params.id}`).then(x => x.json())
+		if (result.text) {
+			alert(result.text)
+			this.$router.push('/')
+		}
+		this.sp = result.sp
 	},
 	data() {
 		return {

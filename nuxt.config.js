@@ -9,8 +9,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - friendtouch',
-    title: 'friendtouch',
+    titleTemplate: 'Friend Touch',
+    title: 'Friend Touch',
     htmlAttrs: {
       lang: 'en'
     },
