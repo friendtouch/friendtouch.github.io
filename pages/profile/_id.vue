@@ -13,7 +13,7 @@
 			</v-list-item>
 		</v-list>
 		<v-btn color="primary" fab large dark bottom right fixed :to="'/edit/'+$route.params.id">
-			<v-icon class="material-icons-outlined">edit</v-icon>
+			<v-icon>fas fa-edit</v-icon>
 		</v-btn>
 	</div>
 </template>

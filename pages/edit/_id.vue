@@ -16,7 +16,7 @@
 						</v-btn>
 					</template>
 
-					<v-list>
+					<v-list style="text-align: left;">
 						<v-list-item v-for="item of settings" :key="item.id" @click="form.data.sp[i].id=item.id">
 							<v-list-item-title>
 								<v-icon>fab fa-{{item.icon}}</v-icon>
@@ -41,9 +41,22 @@
 				</v-btn>
 			</div>
 			<div class="field">
-				<v-btn text color="white" block @click="addLink">
-					<v-icon>fas fa-plus</v-icon>
-				</v-btn>
+				<v-menu top close-on-click>
+					<template v-slot:activator="{ on, attrs }">
+						<v-btn text color="white" block v-bind="attrs" v-on="on">
+							<v-icon>fas fa-plus</v-icon>
+						</v-btn>
+					</template>
+
+					<v-list style="text-align: left;">
+						<v-list-item v-for="item of settings" :key="item.id" @click="addLink(item.id)">
+							<v-list-item-title>
+								<v-icon>fab fa-{{item.icon}}</v-icon>
+								{{item.display_name}}
+							</v-list-item-title>
+						</v-list-item>
+					</v-list>
+				</v-menu>
 			</div>
 			<button class="btn btn-submit neon-text neon-shadow" type="submit">Submit</button>
 		</form>
@@ -73,9 +86,9 @@ export default {
 		}
 	},
 	methods: {
-		addLink() {
+		addLink(id = 'ig') {
 			this.form.data.sp.push({
-				url: "", id: "ig"
+				url: "", id
 			})
 		},
 		async submit() {
