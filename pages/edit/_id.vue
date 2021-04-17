@@ -42,8 +42,9 @@
 <script> 
 
 export default {
-	created() {
+	async created() {
 		this.form.id = this.$route.params.id
+		this.form.links = await fetch(`https://friend-touch.com/api/getdata/${this.$route.params.id}`).then(x => x.json)
 	},
 	data() {
 		return {
