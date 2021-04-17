@@ -2,16 +2,13 @@
 	<div>
 		<form class="form" @submit.prevent="submit">
 			<div class="field">
-				<label class="neon-text">ID</label>
-				<input type="text" required v-model="form.id" readonly />
+				<v-text-field color="white" class="ma-2" label="ID" v-model="form.id" readonly hide-details></v-text-field>
 			</div>
 			<div class="field">
-				<label class="neon-text">Password</label>
-				<input type="text" required v-model="form.pw" />
+				<v-text-field color="white" class="ma-2" label="Password" v-model="form.pw" hide-details></v-text-field>
 			</div>
 			<n-title>Links</n-title>
-			<div class="field links" v-for="(link,i) of form.data.sp" :key="i" v-if="settings.length">
-				<label class="neon-text">{{i+1}}</label>
+			<div class="field links px-2" v-for="(link,i) of form.data.sp" :key="i" v-if="settings.length">
 				<v-menu top close-on-click>
 					<template v-slot:activator="{ on, attrs }">
 						<v-btn color="white" dark v-bind="attrs" v-on="on" icon>
@@ -28,7 +25,17 @@
 						</v-list-item>
 					</v-list>
 				</v-menu>
-				<input type="url" required placeholder="https://" v-model="form.data.sp[i].url" />
+				<v-text-field
+					type="url"
+					class="edit-input"
+					required
+					placeholder="https://"
+					v-model="form.data.sp[i].url"
+					hide-details
+					filled
+					rounded
+				/>
+
 				<v-btn icon color="white" @click="form.data.sp=form.data.sp.filter((x,j)=>i!=j)">
 					<v-icon>fas fa-times</v-icon>
 				</v-btn>
@@ -65,7 +72,7 @@ export default {
 	},
 	methods: {
 		addLink() {
-			this.form.url.push({
+			this.form.data.sp.push({
 				url: "", id: "ig"
 			})
 		},
