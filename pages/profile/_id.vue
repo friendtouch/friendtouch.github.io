@@ -1,13 +1,14 @@
 <template>
 	<div>
-		<v-list subheader style="background: transparent">
-			<v-list-item v-for="link in links" :key="link.value" :to="link.value">
+		<v-list subheader style="background: transparent;text-align: left;" two-line>
+			<v-list-item v-for="item in sp" :key="item.url" :href="item.url" traget="_blank">
 				<v-list-item-avatar>
-					<v-icon dark v-text="link.icon"></v-icon>
+					<v-icon dark>fab fa-{{settings.filter(x=>x.id == item.id)[0].icon}}</v-icon>
 				</v-list-item-avatar>
 
 				<v-list-item-content>
-					<v-list-item-title v-text="link.value"></v-list-item-title>
+					<v-list-item-title>{{settings.filter(x=>x.id == item.id)[0].display_name}}</v-list-item-title>
+					<v-list-item-subtitle>{{item.url}}</v-list-item-subtitle>
 				</v-list-item-content>
 			</v-list-item>
 		</v-list>
@@ -20,12 +21,13 @@
 <script> 
 
 export default {
-	created() {
-		this.links = await fetch(`https://friend-touch.com/api/getdata/${this.$route.params.id}`).then(x => x.json)
+	async created() {
+		this.settings = await fetch(`https://friend-touch.com/api/settings`).then(x => x.json())
+		this.sp = (await fetch(`https://friend-touch.com/api/getdata/${this.$route.params.id}`).then(x => x.json())).sp
 	},
 	data() {
 		return {
-			links: []
+			sp: [], settings: []
 		}
 	},
 	methods: {

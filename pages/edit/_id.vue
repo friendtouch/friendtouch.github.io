@@ -10,31 +10,33 @@
 				<input type="text" required v-model="form.pw" />
 			</div>
 			<n-title>Links</n-title>
-			<div class="field links" v-for="(link,i) of form.links" :key="i">
+			<div class="field links" v-for="(link,i) of form.data.sp" :key="i" v-if="settings.length">
 				<label class="neon-text">{{i+1}}</label>
-				<v-select
-					:items="icons"
-					label="Icon"
-					style="max-width: 80px;padding-top: 0;"
-					v-model="form.links[i].icon"
-					hide-details
-				>
-					<template slot="selection" slot-scope="data">
-						<v-icon>{{data.item}}</v-icon>
+				<v-menu top close-on-click>
+					<template v-slot:activator="{ on, attrs }">
+						<v-btn color="white" dark v-bind="attrs" v-on="on" icon>
+							<v-icon>fab fa-{{settings.filter(x=>x.id == form.data.sp[i].id)[0].icon}}</v-icon>
+						</v-btn>
 					</template>
-					<template slot="item" slot-scope="data">
-						<v-icon>{{data.item}}</v-icon>
-					</template>
-				</v-select>
-				<input type="url" required placeholder="https://" v-model="form.links[i].value" />
-				<v-btn icon color="white" @click="form.links=form.links.filter((x,j)=>i!=j)">
-					<v-icon>far fa-trash-alt</v-icon>
+
+					<v-list>
+						<v-list-item v-for="item of settings" :key="item.id" @click="form.data.sp[i].id=item.id">
+							<v-list-item-title>
+								<v-icon>fab fa-{{item.icon}}</v-icon>
+								{{item.display_name}}
+							</v-list-item-title>
+						</v-list-item>
+					</v-list>
+				</v-menu>
+				<input type="url" required placeholder="https://" v-model="form.data.sp[i].url" />
+				<v-btn icon color="white" @click="form.data.sp=form.data.sp.filter((x,j)=>i!=j)">
+					<v-icon>fas fa-times</v-icon>
 				</v-btn>
 			</div>
 			<div class="field">
 				<v-btn text color="white" block @click="addLink">add</v-btn>
 			</div>
-			<button class="btn btn-submit neon-text neon-shadow" @click="submit">Submit</button>
+			<button class="btn btn-submit neon-text neon-shadow" type="submit">Submit</button>
 		</form>
 	</div>
 </template>
@@ -44,26 +46,27 @@
 export default {
 	async created() {
 		this.form.id = this.$route.params.id
-		this.form.links = await fetch(`https://friend-touch.com/api/getdata/${this.$route.params.id}`).then(x => x.json)
+		this.form.data = await fetch(`https://friend-touch.com/api/getdata/${this.$route.params.id}`).then(x => x.json())
+		this.settings = await fetch(`https://friend-touch.com/api/settings`).then(x => x.json())
 	},
 	data() {
 		return {
 			form: {
 				id: "",
-				links: [{
-					value: "", icon: "fab fa-instagram"
-				}],
+				data: {
+					sp: [{
+						url: "", id: "ig"
+					}],
+				},
 				pw: "",
 			},
-			icons: [
-				'fab fa-instagram'
-			]
+			settings: [],
 		}
 	},
 	methods: {
 		addLink() {
-			this.form.links.push({
-				value: "", icon: "fab fa-instagram"
+			this.form.url.push({
+				url: "", id: "ig"
 			})
 		},
 		async submit() {
@@ -73,8 +76,9 @@ export default {
 					'content-type': 'application/json'
 				},
 				method: 'POST',
-				mode: 'cors',
+				//mode: 'cors',
 			}).then(x => x.json())
+			console.log(result.text)
 			if (result.text == "OK") {
 				this.$router.push(`/profile/${this.$route.params.id}`)
 			} else {
