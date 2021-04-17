@@ -5,7 +5,7 @@
 				<v-text-field filled color="white" label="ID" v-model="form.id" readonly hide-details></v-text-field>
 			</div>
 			<div class="field mt-4">
-				<v-text-field filled color="white" label="Password" v-model="form.pw" hide-details></v-text-field>
+				<v-text-field filled required color="white" label="Password" v-model="form.pw" hide-details></v-text-field>
 			</div>
 			<div v-if="settings.length">
 				<n-title>Links</n-title>
