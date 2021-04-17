@@ -2,10 +2,10 @@
 	<div>
 		<form class="form" @submit.prevent="submit">
 			<div class="field">
-				<v-text-field color="white" class="ma-2" label="ID" v-model="form.id" readonly hide-details></v-text-field>
+				<v-text-field filled color="white" label="ID" v-model="form.id" readonly hide-details></v-text-field>
 			</div>
-			<div class="field">
-				<v-text-field color="white" class="ma-2" label="Password" v-model="form.pw" hide-details></v-text-field>
+			<div class="field mt-4">
+				<v-text-field filled color="white" label="Password" v-model="form.pw" hide-details></v-text-field>
 			</div>
 			<n-title>Links</n-title>
 			<div class="field links px-2" v-for="(link,i) of form.data.sp" :key="i" v-if="settings.length">
