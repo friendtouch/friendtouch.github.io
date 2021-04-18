@@ -3,7 +3,7 @@
 		<v-list subheader style="background: transparent;text-align: left;" two-line>
 			<v-list-item v-for="item in sp" :key="item.url" :href="item.url" target="_blank">
 				<v-list-item-avatar>
-					<v-icon dark>fab fa-{{settings.filter(x=>x.id == item.id)[0].icon}}</v-icon>
+					<v-icon dark>{{settings.filter(x=>x.id == item.id)[0].icon}}</v-icon>
 				</v-list-item-avatar>
 
 				<v-list-item-content>
