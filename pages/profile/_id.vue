@@ -12,6 +12,16 @@
 				</v-list-item-content>
 			</v-list-item>
 		</v-list>
+		<div v-if="!sp.length">
+			<n-title>
+				歡迎使用
+				<br />Friend Touch
+			</n-title>
+			<p>
+				請點右下角進行首次設定
+				<br />設定密碼請刮開卡片銀漆
+			</p>
+		</div>
 		<v-btn color="primary" fab large dark bottom right fixed :to="'/edit/'+$route.params.id">
 			<v-icon>fas fa-pen</v-icon>
 		</v-btn>
