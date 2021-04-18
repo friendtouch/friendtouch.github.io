@@ -19,10 +19,12 @@
 
 						<v-list style="text-align: left;">
 							<v-list-item v-for="item of settings" :key="item.id" @click="form.data.sp[i].id=item.id">
-								<v-list-item-title>
+								<v-list-item-icon>
 									<v-icon>fab fa-{{item.icon}}</v-icon>
-									{{item.display_name}}
-								</v-list-item-title>
+								</v-list-item-icon>
+								<v-list-item-content>
+									<v-list-item-title>{{item.display_name}}</v-list-item-title>
+								</v-list-item-content>
 							</v-list-item>
 						</v-list>
 					</v-menu>
@@ -51,10 +53,12 @@
 
 						<v-list style="text-align: left;">
 							<v-list-item v-for="item of settings" :key="item.id" @click="addLink(item.id)">
-								<v-list-item-title>
+								<v-list-item-icon>
 									<v-icon>fab fa-{{item.icon}}</v-icon>
-									{{item.display_name}}
-								</v-list-item-title>
+								</v-list-item-icon>
+								<v-list-item-content>
+									<v-list-item-title>{{item.display_name}}</v-list-item-title>
+								</v-list-item-content>
 							</v-list-item>
 						</v-list>
 					</v-menu>
