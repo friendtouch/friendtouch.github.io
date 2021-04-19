@@ -8,7 +8,7 @@
 
 				<v-list-item-content>
 					<v-list-item-title>{{settings.filter(x=>x.id == item.id)[0].display_name}}</v-list-item-title>
-					<v-list-item-subtitle>{{item.url}}</v-list-item-subtitle>
+					<!-- <v-list-item-subtitle>{{item.url}}</v-list-item-subtitle> -->
 				</v-list-item-content>
 			</v-list-item>
 		</v-list>
